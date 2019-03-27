@@ -54,7 +54,7 @@ class Delegate implements Hiraeth\Delegate
 		});
 
 		foreach ($middleware as $path => $config) {
-			if (!$config) {
+			if (!$config || $config['disabled'] ?? FALSE) {
 				continue;
 			}
 
