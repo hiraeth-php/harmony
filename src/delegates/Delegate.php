@@ -43,10 +43,22 @@ class Delegate implements Hiraeth\Delegate
 	 */
 	public function __invoke(Hiraeth\Broker $broker): object
 	{
-		$harmony = new Harmony($broker->make(ServerRequest::class), $broker->make(Response::class));
+		$harmony    = new Harmony($broker->make(ServerRequest::class), $broker->make(Response::class));
+		$middleware = $this->app->getConfig('*', 'middleware', []);
 
-		foreach ($this->app->getConfig('web', 'middleware.handlers', []) as $middleware) {
-			$harmony->addMiddleware($broker->make($middleware));
+		uksort($middleware, function($a, $b) {
+			$a_priority = $a['priority'] ?? 50;
+			$b_priority = $b['priority'] ?? 50;
+
+			return $a_priority - $b_priority;
+		});
+
+		foreach ($middleware as $path => $config) {
+			if (!$config) {
+				continue;
+			}
+
+			$harmony->addMiddleware($broker->make($config['class']));
 		}
 
 		return $harmony;
