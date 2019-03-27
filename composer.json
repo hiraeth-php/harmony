@@ -20,7 +20,7 @@
     "extra": {
         "opus": {
             "hiraeth/app": {
-                "config": "config/packages"
+                "config": ""
             }
         }
     }
