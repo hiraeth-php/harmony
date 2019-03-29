@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 /**
  *
  */
-class Delegate implements Hiraeth\Delegate
+class HarmonyDelegate implements Hiraeth\Delegate
 {
 	/**
 	 * Get the class for which the delegate operates.
