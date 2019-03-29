@@ -46,14 +46,14 @@ class HarmonyDelegate implements Hiraeth\Delegate
 		$harmony    = new Harmony($broker->make(ServerRequest::class), $broker->make(Response::class));
 		$middleware = $this->app->getConfig('*', 'middleware', []);
 
-		uksort($middleware, function($a, $b) {
+		usort($middleware, function($a, $b) {
 			$a_priority = $a['priority'] ?? 50;
 			$b_priority = $b['priority'] ?? 50;
 
 			return $a_priority - $b_priority;
 		});
 
-		foreach ($middleware as $path => $config) {
+		foreach ($middleware as $config) {
 			if (!$config || $config['disabled'] ?? FALSE) {
 				continue;
 			}
