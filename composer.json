@@ -1,6 +1,8 @@
 {
     "name": "hiraeth/harmony",
     "description": "PSR-7 Request handling and middleware provided by Harmony for the Hiraeth Nano Framework",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "license": "MIT",
     "authors": [
         {
@@ -9,12 +11,24 @@
             "role":  "Lead Architect / Developer"
         }
     ],
-    "require": {
-        "hiraeth/app": "^2.0",
-        "woohoolabs/harmony": "^6.0"
+    "provide": {
+        "hiraeth/middleware-imp": "3.0.0"
     },
     "autoload": {
-        "classmap": ["src/"]
+        "classmap": [
+            "src/"
+        ]
+    },
+    "require": {
+        "hiraeth/app": "^3.0",
+        "hiraeth/http-imp": "^3.0",
+        "hiraeth/middleware": "^3.0",
+        "woohoolabs/harmony": "^8.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.0",
+        "phpunit/phpunit": "^10.0",
+        "hiraeth/diactoros": "^3.0"
     },
     "type": "opus-package",
     "extra": {
@@ -22,6 +36,11 @@
             "hiraeth/app": {
                 "config": ""
             }
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "imarc/opus": true
         }
     }
 }
