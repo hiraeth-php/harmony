@@ -4,6 +4,8 @@ namespace Hiraeth\Harmony;
 
 use Hiraeth;
 use WoohooLabs\Harmony\Harmony;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  *
@@ -32,8 +34,11 @@ class HarmonyDelegate implements Hiraeth\Delegate
 	 */
 	public function __invoke(Hiraeth\Application $app): object
 	{
-		$harmony = $app->get(Harmony::class);
 		$manager = $app->get(Hiraeth\Middleware\Manager::class);
+		$harmony = new Harmony(
+			$app->get(ServerRequestInterface::class),
+			$app->get(ResponseInterface::class)
+		);
 
 		foreach ($manager->getAll() as $middleware){
 			$harmony->addMiddleware($middleware);
